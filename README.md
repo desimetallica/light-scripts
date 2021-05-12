@@ -1,3 +1,3 @@
-Collection of userful scripts
+Collection of useful scripts
 improved and reviewed.
 
