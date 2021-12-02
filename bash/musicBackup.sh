@@ -5,10 +5,10 @@ recipients="mail@mail.com"
 from="Automatic Backup System"
 backupName="musicBackup"
 # Setting this, so the repo does not need to be given on the commandline:
-export BORG_REPO=/media/desi/MyBook4T/Backup/$backupName
+export BORG_REPO=/media/Backup/$backupName
 
 # See the section "Passphrase notes" for more infos.
-export BORG_PASSPHRASE='borg12345'
+export BORG_PASSPHRASE=''
 export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 
 # some helpers and error handling:
