@@ -1,13 +1,14 @@
 #!/bin/sh
 
 #vars
-recipients="example@example.com"
+recipients="mail@mail.com"
+from="Automatic Backup System"
 backupName="musicBackup"
 # Setting this, so the repo does not need to be given on the commandline:
-export BORG_REPO=somewhere
+export BORG_REPO=/media/desi/MyBook4T/Backup/$backupName
 
 # See the section "Passphrase notes" for more infos.
-export BORG_PASSPHRASE='example'
+export BORG_PASSPHRASE='borg12345'
 export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 
 # some helpers and error handling:
@@ -31,7 +32,7 @@ backupOut=$(borg create                         \
           --exclude '/lost+found/*'       \
                                           \
           ::"{hostname}-{now}"            \
-          /whatToBackup 2>&1)
+          /mnt/data/plexLibrary/Music/ 2>&1)
 
 backup_exit=$?
 
@@ -62,7 +63,7 @@ elif [ ${global_exit} -eq 1 ]; then
 
     /usr/sbin/sendmail "$recipients" <<- EOF
 subject:$backupName finished with warnings
-from:me@example.com
+from:$from
 to:$recipients
 
 This is an WARNING message.
@@ -84,7 +85,7 @@ else
 
     /usr/sbin/sendmail "$recipients" <<- EOF
 subject:$backupName finished with errors
-from:me@example.com
+from:$from
 to:$recipients
 
 This is an ERROR message.
