@@ -7,6 +7,30 @@ function getlink()
         /usr/bin/tmux new-session -s "$id" -d "aria2c -d /default/location --seed-time=0 \"$@\" 2>&1 | tee \"/tmp/$id\""
 }
 
+function getmovie()
+{
+	local id=$(uuidgen)
+        mkdir -p /tmp/$id
+        touch /tmp/$id/$id.log
+        LOG_FILE=/tmp/$id/$id.log
+        local mail="mail@gmail.com"
+
+        #local location="$1"
+        local magnet="$1"
+        #echo "Debug location: /mnt/data/torrent-complete/$location"
+        echo " `date` DEBUG: session id: $id " >> $LOG_FILE
+        echo " `date` DEBUG: session id: $id "
+        echo " `date` DEBUG: magnet link: $magnet " >> $LOG_FILE
+        echo " `date` DEBUG: magnet link: $magnet "
+        #aria2c -d /mnt/data/torrent-complete/movie/ --log="/var/tmp/$id" --seed-time=0 "$@"
+        #/usr/bin/tmux new-session -s "$id" -d "aria2c -d /mnt/data/torrent-complete/movie/ --log=\"/var/log/$id\" --seed-time=0 \"$@\""
+
+        /usr/bin/tmux new-session -s "$id" -d "aria2c -d /mnt/data/torrent-complete/movie/ --max-upload-limit=1K --seed-time=0 \"$@\" 2>&1 | tee -a \"/tmp/$id/$id\" && echo -e \"S
+                                               ubject:Download $id completed \n\n I would like to inform you that download is completed the magnet is: $magnet\n\" | sendmail $mail"
+        
+}
+
+
 function gethls()
 {
         local id=$(uuidgen)
